@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\stand\AppData\Local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\stand\AppData\Local\JetBrains\Rider2020.1\resharper-host\Local\Transient\ReSharperHost\v201\SolutionCaches\_server.124904553.00" t="ExcludeRecursive" />
+    <e p="D:\Saxion Work\Classes\Networking\Networking\Assignment1\starting_code\server" t="IncludeRecursive">
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Properties" t="Include">
+        <e p="AssemblyInfo.cs" t="Include" />
+      </e>
+      <e p="server.csproj" t="IncludeRecursive" />
+      <e p="server.sln" t="IncludeFlat" />
+      <e p="TCPServerSample.cs" t="Include" />
+    </e>
+  </component>
+</project>
