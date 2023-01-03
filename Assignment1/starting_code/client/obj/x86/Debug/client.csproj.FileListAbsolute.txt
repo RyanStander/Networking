@@ -46,3 +46,9 @@ D:\Dropbox\HW\saxion\courses_cmgt\2_3_networking\sheets\lecture_1_examples+\001_
 D:\Dropbox\HW\saxion\courses_cmgt\2_3_networking\sheets\lecture_1_examples+\001_basic_tcp_echo_server_commented\client\obj\x86\Debug\client.csproj.CoreCompileInputs.cache
 D:\Dropbox\HW\saxion\courses_cmgt\2_3_networking\sheets\lecture_1_examples+\001_basic_tcp_echo_server_commented\client\obj\x86\Debug\client.exe
 D:\Dropbox\HW\saxion\courses_cmgt\2_3_networking\sheets\lecture_1_examples+\001_basic_tcp_echo_server_commented\client\obj\x86\Debug\client.pdb
+D:\Saxion Work\Classes\Networking\Networking\Assignment1\starting_code\client\bin\Debug\client.exe
+D:\Saxion Work\Classes\Networking\Networking\Assignment1\starting_code\client\bin\Debug\client.pdb
+D:\Saxion Work\Classes\Networking\Networking\Assignment1\starting_code\client\obj\x86\Debug\client.csprojAssemblyReference.cache
+D:\Saxion Work\Classes\Networking\Networking\Assignment1\starting_code\client\obj\x86\Debug\client.csproj.CoreCompileInputs.cache
+D:\Saxion Work\Classes\Networking\Networking\Assignment1\starting_code\client\obj\x86\Debug\client.exe
+D:\Saxion Work\Classes\Networking\Networking\Assignment1\starting_code\client\obj\x86\Debug\client.pdb

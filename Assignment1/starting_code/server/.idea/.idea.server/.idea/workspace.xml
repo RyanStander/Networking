@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="89d24984-a8b7-4a69-9809-cd5a6b4857ae" name="Default Changelist" comment="" />
+    <list default="true" id="89d24984-a8b7-4a69-9809-cd5a6b4857ae" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../assignment_1.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../assignment_1.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/.idea.client.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/contentModel.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/.idea.client/riderModule.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/TCPClientSample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../client/TCPClientSample.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/bin/Debug/client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../client/bin/Debug/client.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/obj/x86/Debug/client.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../client/obj/x86/Debug/client.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/obj/x86/Debug/client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../client/obj/x86/Debug/client.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.server/.idea/.idea.server.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.server/.idea/contentModel.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.server/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.server/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.server/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.server/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.server/riderModule.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TCPServerSample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TCPServerSample.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/server.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/server.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/x86/Debug/server.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/x86/Debug/server.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/x86/Debug/server.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/x86/Debug/server.exe" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,23 +35,21 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/TCPServerSample.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2E1oAHYm1UKzUzEEwNg2sVxRLWJ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
   <component name="RunManager">
     <configuration name="server" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -50,6 +70,7 @@
       </method>
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -62,14 +83,28 @@
       <updated>1661772311185</updated>
       <workItem from="1661772330816" duration="108000" />
       <workItem from="1661772472467" duration="606000" />
+      <workItem from="1672769713718" duration="411000" />
+      <workItem from="1672770167201" duration="903000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
