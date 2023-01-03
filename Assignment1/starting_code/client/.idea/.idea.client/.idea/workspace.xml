@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e9f39ff6-716d-4bfd-93f4-4d79dc9ac9d9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/client.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/x86/Debug/client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/x86/Debug/client.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/.idea/.idea.server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/.idea.server/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/bin/Debug/server.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../server/bin/Debug/server.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/obj/x86/Debug/server.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../server/obj/x86/Debug/server.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +18,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a2bf40a7760349bab7ee613b303b8c7235b9a0/a7/5ca8a640/Socket.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../Networking Prev year/assignment_1/starting_code/client/TCPClientSample.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../Networking Prev year/assignment_1/starting_code/server/TCPServerSample.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TCPClientSample.cs" root0="FORCE_HIGHLIGHTING" />
@@ -67,7 +72,7 @@
       <updated>1661772424317</updated>
       <workItem from="1661772441256" duration="642000" />
       <workItem from="1672765202342" duration="593000" />
-      <workItem from="1672769740500" duration="3193000" />
+      <workItem from="1672769740500" duration="4234000" />
     </task>
     <servers />
   </component>
