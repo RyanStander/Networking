@@ -2,27 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9f39ff6-716d-4bfd-93f4-4d79dc9ac9d9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../assignment_1.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../assignment_1.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.client/.idea/.idea.client.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.client/.idea/contentModel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.client/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.client/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.client/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.client/riderModule.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TCPClientSample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TCPClientSample.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/client.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/x86/Debug/client.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/x86/Debug/client.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/x86/Debug/client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/x86/Debug/client.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/.idea/.idea.server/.idea/.idea.server.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/.idea/.idea.server/.idea/contentModel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/.idea/.idea.server/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/.idea.server/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/.idea/.idea.server/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/.idea/.idea.server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/.idea.server/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/.idea/.idea.server/riderModule.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/TCPServerSample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../server/TCPServerSample.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/bin/Debug/server.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../server/bin/Debug/server.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/obj/x86/Debug/server.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../server/obj/x86/Debug/server.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/obj/x86/Debug/server.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../server/obj/x86/Debug/server.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +14,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../../../Networking Prev year/assignment_1/starting_code/client/TCPClientSample.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../Networking Prev year/assignment_1/starting_code/server/TCPServerSample.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TCPClientSample.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../server/TCPServerSample.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -52,10 +35,10 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration name="client" type="DotNetProject" factoryName=".NET Project">
-      <option name="EXE_PATH" value="" />
+    <configuration name="client" type="DotNetProject" factoryName=".NET Project" singleton="false">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/bin/Debug/client.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin/Debug" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -65,7 +48,7 @@
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
       <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
       <option name="PROJECT_KIND" value="Console" />
-      <option name="PROJECT_TFM" value="" />
+      <option name="PROJECT_TFM" value=".NETFramework,Version=v4.5" />
       <method v="2">
         <option name="Build" />
       </method>
@@ -84,7 +67,7 @@
       <updated>1661772424317</updated>
       <workItem from="1661772441256" duration="642000" />
       <workItem from="1672765202342" duration="593000" />
-      <workItem from="1672769740500" duration="1323000" />
+      <workItem from="1672769740500" duration="3193000" />
     </task>
     <servers />
   </component>

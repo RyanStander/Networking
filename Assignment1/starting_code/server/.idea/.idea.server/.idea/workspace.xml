@@ -2,27 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89d24984-a8b7-4a69-9809-cd5a6b4857ae" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../assignment_1.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../assignment_1.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/.idea.client.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/contentModel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/.idea.client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/.idea/.idea.client/riderModule.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/TCPClientSample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../client/TCPClientSample.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/bin/Debug/client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../client/bin/Debug/client.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/obj/x86/Debug/client.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../client/obj/x86/Debug/client.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/obj/x86/Debug/client.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../client/obj/x86/Debug/client.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.server/.idea/.idea.server.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.server/.idea/contentModel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.server/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.server/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.server/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.server/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.server/riderModule.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TCPServerSample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TCPServerSample.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/server.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/server.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/x86/Debug/server.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/x86/Debug/server.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/x86/Debug/server.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/x86/Debug/server.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +65,7 @@
       <workItem from="1661772330816" duration="108000" />
       <workItem from="1661772472467" duration="606000" />
       <workItem from="1672769713718" duration="411000" />
-      <workItem from="1672770167201" duration="903000" />
+      <workItem from="1672770167201" duration="3781000" />
     </task>
     <servers />
   </component>
