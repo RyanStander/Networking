@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using shared;
 
@@ -38,8 +40,8 @@ namespace server
 				foreach (var client in clients)
 				{
 					if (client.Available == 0) continue;
-					var stream = client.GetStream();
-					StreamUtil.Write(stream, StreamUtil.Read(stream));
+
+					SendMessage(client);
 				}
 
 				//Although technically not required, now that we are no longer blocking, 
@@ -47,6 +49,24 @@ namespace server
 				Thread.Sleep(100);
 			}
 		}
+		
+		private static void SendMessage(TcpClient client)
+		{
+			var stream = client.GetStream();
+
+			var timeStamp = "["+DateTime.Now.ToString("HH:mm")+"]";
+			var userName = client.Client.RemoteEndPoint.ToString();
+			
+			//Get the data being sent
+			var receivedMessage =Encoding.UTF8.GetString(StreamUtil.Read(stream));
+
+			var output = timeStamp + userName + ": " + receivedMessage;
+			
+			Console.WriteLine(output);
+
+			StreamUtil.Write(stream, Encoding.UTF8.GetBytes(output));
+		}
+		
 	}
 }
 

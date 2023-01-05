@@ -40,6 +40,21 @@ public class TcpChatClient : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+	    ReadMessages();
+    }
+
+    private void ReadMessages()
+    {
+	    if (client.Available==0)
+		    return;
+	    
+	    var inBytes = StreamUtil.Read(client.GetStream());
+	    var inString = Encoding.UTF8.GetString(inBytes);
+	    panelWrapper.AddOutput(inString);
+    }
+
     private void OnTextEntered(string pInput)
     {
         if (string.IsNullOrEmpty(pInput)) return;
@@ -52,9 +67,7 @@ public class TcpChatClient : MonoBehaviour
 			var outBytes = Encoding.UTF8.GetBytes(pInput);
 			StreamUtil.Write(client.GetStream(), outBytes);
 
-			var inBytes = StreamUtil.Read(client.GetStream());
-            var inString = Encoding.UTF8.GetString(inBytes);
-            panelWrapper.AddOutput(inString);
+			
 		} 
         catch (Exception e) 
         {
