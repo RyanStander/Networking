@@ -12,23 +12,25 @@ namespace server
     /// <summary>
     /// This class implements a simple concurrent TCP Echo server.
     /// </summary>
-    class TcpServerSample
+    public class TcpServerSample
     {
         private static TcpListener listener;
         private static Dictionary<string, TcpClient> clients;
 
         private const int ServerPort = 55555;
-        
+
         private static readonly Random RandomNumberGenerator = new Random();
 
         //Fun random usernames from xbox
-        private static readonly string[] RandomUsernames = {
+        private static readonly string[] RandomUsernames =
+        {
             "GingerEmpress", "LowercaseBeef", "BeefCurtain", "TinklyDiamond", "LintyStarfish", "LuxuriousSolid",
             "SinlessNutria", "GalacticPanda", "IAmNotAFish", "IrksomeSquid", "PartyMcFly", "SonicTheHedgeFund",
             "SuspiciousSquid"
         };
 
-        private static readonly string[] RandomWelcomeMessages = {
+        private static readonly string[] RandomWelcomeMessages =
+        {
             "Welcome, {0} We hope you've brought pizza.", "Good to see you, {0}", "A wild {0} appeared.",
             "{0} just showed up", "Glad you're here, {0}.", "{0} is here.", "{0} just slid into the server.",
             "Yay you made it, {0}!", "{0} hopped into the server", "Welcome {0}. Say hi!", "{0} just landed."
@@ -43,7 +45,6 @@ namespace server
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
             }
         }
 
@@ -74,12 +75,13 @@ namespace server
                 var newClient = listener.AcceptTcpClient();
                 var chosenUsername = GenerateRandomUsername();
 
-                SendMessageToAll(string.Format(RandomWelcomeMessages[RandomNumberGenerator.Next(0, RandomWelcomeMessages.Length)],
+                GenericUtils.SendMessageToAll(clients, string.Format(
+                    RandomWelcomeMessages[RandomNumberGenerator.Next(0, RandomWelcomeMessages.Length)],
                     chosenUsername));
 
                 clients.Add(chosenUsername, newClient);
 
-                SendMessageToClient(newClient, "You joined the server as " + chosenUsername);
+                GenericUtils.SendMessageToClient(newClient, "You joined the server as " + chosenUsername);
                 Console.WriteLine("Accepted new client.");
             }
         }
@@ -91,14 +93,25 @@ namespace server
             {
                 if (client.Value.Available == 0) continue;
 
-                SendChatMessage(client.Key, client.Value);
+                var stream = client.Value.GetStream();
+                //Get the data being sent
+                var receivedMessage = Encoding.UTF8.GetString(StreamUtil.Read(stream));
+
+                if (receivedMessage.StartsWith("/"))
+                {
+                    //If we happen to modify the dictionary, we want to break out of the for loop as it would cause errors.
+                    if (CommandManager.ProcessCommand(ref clients, client, receivedMessage))
+                        break;
+                }
+                else
+                    SendChatMessage(client, receivedMessage);
             }
         }
 
         private static void CleanupFaultyClients()
         {
             List<string> clientsToDelete = new();
-            
+
             foreach (var client in clients)
             {
                 if (!IsConnected(client.Value.Client))
@@ -106,7 +119,7 @@ namespace server
                     clientsToDelete.Add(client.Key);
                 }
             }
-            
+
             foreach (var badClient in clientsToDelete)
             {
                 clients.Remove(badClient);
@@ -114,18 +127,13 @@ namespace server
             }
         }
 
-        private static void SendChatMessage(string username, TcpClient client)
+        private static void SendChatMessage(KeyValuePair<string, TcpClient> client, string receivedMessage)
         {
-            var stream = client.GetStream();
-
             var timeStamp = "[" + DateTime.Now.ToString("HH:mm") + "]";
 
-            //Get the data being sent
-            var receivedMessage = Encoding.UTF8.GetString(StreamUtil.Read(stream));
+            var output = timeStamp + client.Key + ": " + receivedMessage;
 
-            var output = timeStamp + username + ": " + receivedMessage;
-
-            SendMessageToAll(output);
+            GenericUtils.SendMessageToAll(clients, output);
         }
 
         private static string GenerateRandomUsername()
@@ -135,14 +143,14 @@ namespace server
 
             var usernameNumber = 1;
 
-            while (!TryFindUniqueUsername(chosenUsername + usernameNumber))
+            while (!GenericUtils.IsUsernameUnique(clients, chosenUsername + usernameNumber))
             {
                 usernameNumber += 1;
             }
 
             return chosenUsername + usernameNumber;
         }
-        
+
         private static bool IsConnected(Socket socket)
         {
             try
@@ -150,41 +158,10 @@ namespace server
                 //checks if there is a response from the socket
                 return !(socket.Available == 0 && socket.Poll(1, SelectMode.SelectRead));
             }
-            catch (SocketException) { return false; }
-        }
-
-        private static bool TryFindUniqueUsername(string chosenUsername)
-        {
-            //Check if the username is already taken
-            return clients.All(client => !client.Key.Equals(chosenUsername));
-        }
-
-        #region Sending Messages
-        
-        //Note: currently this is only for strings, but i intend to add more variations when necessary.
-
-        #region SendMessageToAll
-
-        private static void SendMessageToAll(string message)
-        {
-            foreach (var client in clients.Values)
+            catch (SocketException)
             {
-                SendMessageToClient(client, message);
+                return false;
             }
         }
-
-        #endregion
-
-        #region SendMessageToClient
-
-        private static void SendMessageToClient(TcpClient client, string message)
-        {
-            var stream = client.GetStream();
-            StreamUtil.Write(stream, Encoding.UTF8.GetBytes(message));
-        }
-
-        #endregion
-
-        #endregion
     }
 }
