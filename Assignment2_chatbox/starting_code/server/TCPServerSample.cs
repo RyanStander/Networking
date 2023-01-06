@@ -9,65 +9,182 @@ using shared;
 
 namespace server
 {
-	class TcpServerSample
-	{
-		/**
-	 * This class implements a simple concurrent TCP Echo server.
-	 * Read carefully through the comments below.
-	 */
-		public static void Main (string[] args)
-		{
-			Console.WriteLine("Server started on port 55555");
+    /// <summary>
+    /// This class implements a simple concurrent TCP Echo server.
+    /// </summary>
+    class TcpServerSample
+    {
+        private static TcpListener listener;
+        private static Dictionary<string, TcpClient> clients;
 
-			var listener = new TcpListener (IPAddress.Any, 55555);
-			listener.Start ();
+        private const int ServerPort = 55555;
+        
+        private static readonly Random RandomNumberGenerator = new Random();
 
-			var clients = new List<TcpClient>();
+        //Fun random usernames from xbox
+        private static readonly string[] RandomUsernames = {
+            "GingerEmpress", "LowercaseBeef", "BeefCurtain", "TinklyDiamond", "LintyStarfish", "LuxuriousSolid",
+            "SinlessNutria", "GalacticPanda", "IAmNotAFish", "IrksomeSquid", "PartyMcFly", "SonicTheHedgeFund",
+            "SuspiciousSquid"
+        };
 
-			while (true)
-			{
-				//First big change with respect to example 001
-				//We no longer block waiting for a client to connect, but we only block if we know
-				//a client is actually waiting (in other words, we will not block)
-				//In order to serve multiple clients, we add that client to a list
-				while (listener.Pending()) { 
-					clients.Add(listener.AcceptTcpClient());
-					Console.WriteLine("Accepted new client.");
-				}
+        private static readonly string[] RandomWelcomeMessages = {
+            "Welcome, {0} We hope you've brought pizza.", "Good to see you, {0}", "A wild {0} appeared.",
+            "{0} just showed up", "Glad you're here, {0}.", "{0} is here.", "{0} just slid into the server.",
+            "Yay you made it, {0}!", "{0} hopped into the server", "Welcome {0}. Say hi!", "{0} just landed."
+        };
 
-				//Second big change, instead of blocking on one client, 
-				//we now process all clients IF they have data available
-				foreach (var client in clients)
-				{
-					if (client.Available == 0) continue;
+        public static void Main(string[] args)
+        {
+            try
+            {
+                Run();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
 
-					SendMessage(client);
-				}
+        private static void Run()
+        {
+            Console.WriteLine("Server started on port " + ServerPort);
 
-				//Although technically not required, now that we are no longer blocking, 
-				//it is good to cut your CPU some slack
-				Thread.Sleep(100);
-			}
-		}
-		
-		private static void SendMessage(TcpClient client)
-		{
-			var stream = client.GetStream();
+            listener = new TcpListener(IPAddress.Any, ServerPort);
+            listener.Start();
 
-			var timeStamp = "["+DateTime.Now.ToString("HH:mm")+"]";
-			var userName = client.Client.RemoteEndPoint.ToString();
-			
-			//Get the data being sent
-			var receivedMessage =Encoding.UTF8.GetString(StreamUtil.Read(stream));
+            clients = new Dictionary<string, TcpClient>();
 
-			var output = timeStamp + userName + ": " + receivedMessage;
-			
-			Console.WriteLine(output);
+            while (true)
+            {
+                ProcessNewClients();
+                ProcessExistingClients();
+                CleanupFaultyClients();
 
-			StreamUtil.Write(stream, Encoding.UTF8.GetBytes(output));
-		}
-		
-	}
+                Thread.Sleep(100);
+            }
+        }
+
+        private static void ProcessNewClients()
+        {
+            //check if a client is trying to connect, if so connect them.
+            while (listener.Pending())
+            {
+                var newClient = listener.AcceptTcpClient();
+                var chosenUsername = GenerateRandomUsername();
+
+                SendMessageToAll(string.Format(RandomWelcomeMessages[RandomNumberGenerator.Next(0, RandomWelcomeMessages.Length)],
+                    chosenUsername));
+
+                clients.Add(chosenUsername, newClient);
+
+                SendMessageToClient(newClient, "You joined the server as " + chosenUsername);
+                Console.WriteLine("Accepted new client.");
+            }
+        }
+
+        private static void ProcessExistingClients()
+        {
+            //Process clients messages if they send one
+            foreach (var client in clients)
+            {
+                if (client.Value.Available == 0) continue;
+
+                SendChatMessage(client.Key, client.Value);
+            }
+        }
+
+        private static void CleanupFaultyClients()
+        {
+            List<string> clientsToDelete = new();
+            
+            foreach (var client in clients)
+            {
+                if (!IsConnected(client.Value.Client))
+                {
+                    clientsToDelete.Add(client.Key);
+                }
+            }
+            
+            foreach (var badClient in clientsToDelete)
+            {
+                clients.Remove(badClient);
+                Console.WriteLine("Removed bad client: " + badClient);
+            }
+        }
+
+        private static void SendChatMessage(string username, TcpClient client)
+        {
+            var stream = client.GetStream();
+
+            var timeStamp = "[" + DateTime.Now.ToString("HH:mm") + "]";
+
+            //Get the data being sent
+            var receivedMessage = Encoding.UTF8.GetString(StreamUtil.Read(stream));
+
+            var output = timeStamp + username + ": " + receivedMessage;
+
+            SendMessageToAll(output);
+        }
+
+        private static string GenerateRandomUsername()
+        {
+            var index = RandomNumberGenerator.Next(0, RandomUsernames.Length);
+            var chosenUsername = RandomUsernames[index];
+
+            var usernameNumber = 1;
+
+            while (!TryFindUniqueUsername(chosenUsername + usernameNumber))
+            {
+                usernameNumber += 1;
+            }
+
+            return chosenUsername + usernameNumber;
+        }
+        
+        private static bool IsConnected(Socket socket)
+        {
+            try
+            {
+                //checks if there is a response from the socket
+                return !(socket.Available == 0 && socket.Poll(1, SelectMode.SelectRead));
+            }
+            catch (SocketException) { return false; }
+        }
+
+        private static bool TryFindUniqueUsername(string chosenUsername)
+        {
+            //Check if the username is already taken
+            return clients.All(client => !client.Key.Equals(chosenUsername));
+        }
+
+        #region Sending Messages
+        
+        //Note: currently this is only for strings, but i intend to add more variations when necessary.
+
+        #region SendMessageToAll
+
+        private static void SendMessageToAll(string message)
+        {
+            foreach (var client in clients.Values)
+            {
+                SendMessageToClient(client, message);
+            }
+        }
+
+        #endregion
+
+        #region SendMessageToClient
+
+        private static void SendMessageToClient(TcpClient client, string message)
+        {
+            var stream = client.GetStream();
+            StreamUtil.Write(stream, Encoding.UTF8.GetBytes(message));
+        }
+
+        #endregion
+
+        #endregion
+    }
 }
-
-
