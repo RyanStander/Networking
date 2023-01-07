@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -13,11 +12,6 @@ namespace server
         {
             //Check if the username is already taken
             return clients.All(client => !client.Key.Equals(chosenUsername));
-        }
-
-        public static bool IndexIsInRange(int index, int max)
-        {
-            return (index >= 0 && index < max);
         }
 
         #region Sending Messages

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using shared;
 
 namespace server
 {
@@ -21,8 +18,12 @@ namespace server
 
         private static readonly string[] SetNameCommands = { "/setname", "/sn" };
         private static readonly string[] ListCommands = { "/list", "/ls" };
-        private static readonly string[] HelpCommands = { "/help" };
+        private static readonly string[] HelpCommands = { "/help", "/h" };
 
+        private static readonly string CommandExplanation = $"/setname <new_name>: change your name to the new specified name \n" +
+                                                            $"/list: get a list of all current players connected to your server \n" +
+                                                            $"/help: get a list of all commands that can be performed \n";
+        
         #endregion
 
 
@@ -34,18 +35,19 @@ namespace server
             {
                 return SetName(ref clients, clientThatRanCommand, command);
             }
-            else if (MatchesCommand(ListCommands, command))
+
+            if (MatchesCommand(ListCommands, command))
             {
+                ListUsers(clients,clientThatRanCommand);
                 return false;
             }
-            else if (MatchesCommand(HelpCommands, command))
+
+            if (MatchesCommand(HelpCommands, command))
             {
+                GetAllCommands(clientThatRanCommand);
                 return false;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private static bool MatchesCommand(string[] commands, string enteredCommand)
@@ -83,11 +85,28 @@ namespace server
 
             GenericUtils.SendMessageToClient(clientThatRanCommand.Value, "Changed username to " + newName);
             clients.Remove(clientThatRanCommand.Key);
-            
-            GenericUtils.SendMessageToAll(clients,clientThatRanCommand.Key + " has changed their name to " + newName);
-            
+
+            GenericUtils.SendMessageToAll(clients, clientThatRanCommand.Key + " has changed their name to " + newName);
+
             clients.Add(newName, clientThatRanCommand.Value);
             return true;
+        }
+
+        private static void ListUsers(Dictionary<string, TcpClient> clients,
+            KeyValuePair<string, TcpClient> clientThatRanCommand)
+        {
+            var output = clients.Aggregate($"Players currently connected: \n",
+                (current, tcpClient) => current + (tcpClient.Key+$"\n"));
+            
+            //Remove the newline
+            output=output.Substring(0, output.Length - 1);
+            
+            GenericUtils.SendMessageToClient(clientThatRanCommand.Value, output);
+        }
+
+        private static void GetAllCommands(KeyValuePair<string, TcpClient> clientThatRanCommand)
+        {
+            GenericUtils.SendMessageToClient(clientThatRanCommand.Value,CommandExplanation);
         }
     }
 }

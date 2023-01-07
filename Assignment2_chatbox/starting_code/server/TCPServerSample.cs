@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using shared;
 
 namespace server
@@ -16,6 +17,12 @@ namespace server
     {
         private static TcpListener listener;
         private static Dictionary<string, TcpClient> clients;
+
+        private static readonly Dictionary<string, float> timedOutClients = new();
+
+        //How long until a client will be deleted
+        private const float TimeOutLimit = 3;
+        private const int CheckIntervalsInMilliseconds = 500;
 
         private const int ServerPort = 55555;
 
@@ -67,6 +74,8 @@ namespace server
             }
         }
 
+        #region Processing New Clients
+
         private static void ProcessNewClients()
         {
             //check if a client is trying to connect, if so connect them.
@@ -85,6 +94,25 @@ namespace server
                 Console.WriteLine("Accepted new client.");
             }
         }
+
+        private static string GenerateRandomUsername()
+        {
+            var index = RandomNumberGenerator.Next(0, RandomUsernames.Length);
+            var chosenUsername = RandomUsernames[index];
+
+            var usernameNumber = 1;
+
+            while (!GenericUtils.IsUsernameUnique(clients, chosenUsername + usernameNumber))
+            {
+                usernameNumber += 1;
+            }
+
+            return chosenUsername + usernameNumber;
+        }
+
+        #endregion
+
+        #region Processing Existing Clients
 
         private static void ProcessExistingClients()
         {
@@ -108,25 +136,6 @@ namespace server
             }
         }
 
-        private static void CleanupFaultyClients()
-        {
-            List<string> clientsToDelete = new();
-
-            foreach (var client in clients)
-            {
-                if (!IsConnected(client.Value.Client))
-                {
-                    clientsToDelete.Add(client.Key);
-                }
-            }
-
-            foreach (var badClient in clientsToDelete)
-            {
-                clients.Remove(badClient);
-                Console.WriteLine("Removed bad client: " + badClient);
-            }
-        }
-
         private static void SendChatMessage(KeyValuePair<string, TcpClient> client, string receivedMessage)
         {
             var timeStamp = "[" + DateTime.Now.ToString("HH:mm") + "]";
@@ -136,19 +145,13 @@ namespace server
             GenericUtils.SendMessageToAll(clients, output);
         }
 
-        private static string GenerateRandomUsername()
+        #endregion
+
+        #region Cleanup Faulty Clients
+
+        private static async void CleanupFaultyClients()
         {
-            var index = RandomNumberGenerator.Next(0, RandomUsernames.Length);
-            var chosenUsername = RandomUsernames[index];
-
-            var usernameNumber = 1;
-
-            while (!GenericUtils.IsUsernameUnique(clients, chosenUsername + usernameNumber))
-            {
-                usernameNumber += 1;
-            }
-
-            return chosenUsername + usernameNumber;
+            await HeartbeatForTimeout(CheckIntervalsInMilliseconds);
         }
 
         private static bool IsConnected(Socket socket)
@@ -163,5 +166,55 @@ namespace server
                 return false;
             }
         }
+
+        private static void CheckForTimeout()
+        {
+            foreach (var client in clients)
+            {
+                if (!IsConnected(client.Value.Client))
+                {
+                    if (timedOutClients.ContainsKey(client.Key))
+                    {
+                        //adds the time passed if the dict already exists
+                        timedOutClients[client.Key] += (float)CheckIntervalsInMilliseconds / 1000;
+                    }
+
+                    timedOutClients.Add(client.Key, 0);
+                }
+                else
+                {
+                    if (timedOutClients.ContainsKey(client.Key))
+                    {
+                        timedOutClients.Remove(client.Key);
+                    }
+                }
+            }
+
+            if (timedOutClients.Count == 0)
+                return;
+
+            var timedOutClientsToRemove = new List<string>();
+
+            foreach (var timedOutClient in
+                     timedOutClients.Where(timedOutClient => timedOutClient.Value >= TimeOutLimit))
+            {
+                clients.Remove(timedOutClient.Key);
+                timedOutClientsToRemove.Add(timedOutClient.Key);
+                Console.WriteLine("Client disconnected due to timeout: " + timedOutClient.Key);
+            }
+
+            foreach (var clientsToRemove in timedOutClientsToRemove)
+            {
+                timedOutClients.Remove(clientsToRemove);
+            }
+        }
+
+        private static async Task HeartbeatForTimeout(int milliseconds)
+        {
+            await Task.Delay(milliseconds);
+            CheckForTimeout();
+        }
+
+        #endregion
     }
 }
