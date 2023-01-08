@@ -8,10 +8,10 @@ namespace server
 {
     public static class GenericUtils
     {
-        public static bool IsUsernameUnique(Dictionary<string, TcpClient> clients, string chosenUsername)
+        public static bool IsUsernameUnique(List<UserData> clients, string chosenUsername)
         {
             //Check if the username is already taken
-            return clients.All(client => !client.Key.Equals(chosenUsername));
+            return clients.All(client => !client.Username.Equals(chosenUsername));
         }
 
         #region Sending Messages
@@ -20,11 +20,11 @@ namespace server
 
         #region SendMessageToAll
 
-        public static void SendMessageToAll(Dictionary<string, TcpClient> clients, string message)
+        public static void SendMessageToAll(List<UserData> clients, string message)
         {
-            foreach (var client in clients.Values)
+            foreach (var client in clients)
             {
-                SendMessageToClient(client, message);
+                SendMessageToClient(client.Client, message);
             }
         }
 

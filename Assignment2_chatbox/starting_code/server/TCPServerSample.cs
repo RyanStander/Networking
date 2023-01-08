@@ -16,9 +16,7 @@ namespace server
     public class TcpServerSample
     {
         private static TcpListener listener;
-        private static Dictionary<string, TcpClient> clients;
-
-        private static readonly Dictionary<string, float> timedOutClients = new();
+        private static List<UserData> clients;
 
         //How long until a client will be deleted
         private const float TimeOutLimit = 3;
@@ -62,7 +60,7 @@ namespace server
             listener = new TcpListener(IPAddress.Any, ServerPort);
             listener.Start();
 
-            clients = new Dictionary<string, TcpClient>();
+            clients = new List<UserData>();
 
             while (true)
             {
@@ -88,7 +86,7 @@ namespace server
                     RandomWelcomeMessages[RandomNumberGenerator.Next(0, RandomWelcomeMessages.Length)],
                     chosenUsername));
 
-                clients.Add(chosenUsername, newClient);
+                clients.Add(new UserData(newClient,chosenUsername));
 
                 GenericUtils.SendMessageToClient(newClient, "You joined the server as " + chosenUsername);
                 Console.WriteLine("Accepted new client.");
@@ -119,9 +117,9 @@ namespace server
             //Process clients messages if they send one
             foreach (var client in clients)
             {
-                if (client.Value.Available == 0) continue;
+                if (client.Client.Available == 0) continue;
 
-                var stream = client.Value.GetStream();
+                var stream = client.Client.GetStream();
                 //Get the data being sent
                 var receivedMessage = Encoding.UTF8.GetString(StreamUtil.Read(stream));
 
@@ -136,11 +134,11 @@ namespace server
             }
         }
 
-        private static void SendChatMessage(KeyValuePair<string, TcpClient> client, string receivedMessage)
+        private static void SendChatMessage(UserData client, string receivedMessage)
         {
             var timeStamp = "[" + DateTime.Now.ToString("HH:mm") + "]";
 
-            var output = timeStamp + client.Key + ": " + receivedMessage;
+            var output = timeStamp + client.Username + ": " + receivedMessage;
 
             GenericUtils.SendMessageToAll(clients, output);
         }
@@ -171,41 +169,25 @@ namespace server
         {
             foreach (var client in clients)
             {
-                if (!IsConnected(client.Value.Client))
+                if (!IsConnected(client.Client.Client))
                 {
-                    if (timedOutClients.ContainsKey(client.Key))
-                    {
-                        //adds the time passed if the dict already exists
-                        timedOutClients[client.Key] += (float)CheckIntervalsInMilliseconds / 1000;
-                    }
-
-                    timedOutClients.Add(client.Key, 0);
-                }
-                else
-                {
-                    if (timedOutClients.ContainsKey(client.Key))
-                    {
-                        timedOutClients.Remove(client.Key);
-                    }
+                    //adds the time passed
+                        client.TimedOutDuration += (float)CheckIntervalsInMilliseconds / 1000;
                 }
             }
 
-            if (timedOutClients.Count == 0)
-                return;
-
-            var timedOutClientsToRemove = new List<string>();
+            var timedOutClientsToRemove = new List<UserData>();
 
             foreach (var timedOutClient in
-                     timedOutClients.Where(timedOutClient => timedOutClient.Value >= TimeOutLimit))
+                     clients.Where(timedOutClient => timedOutClient.TimedOutDuration >= TimeOutLimit))
             {
-                clients.Remove(timedOutClient.Key);
-                timedOutClientsToRemove.Add(timedOutClient.Key);
-                Console.WriteLine("Client disconnected due to timeout: " + timedOutClient.Key);
+                timedOutClientsToRemove.Add(timedOutClient);
             }
 
             foreach (var clientsToRemove in timedOutClientsToRemove)
             {
-                timedOutClients.Remove(clientsToRemove);
+                clients.Remove(clientsToRemove);
+                Console.WriteLine("Client disconnected due to timeout: " + clientsToRemove.Username);
             }
         }
 
